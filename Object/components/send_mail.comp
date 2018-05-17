@@ -1,0 +1,11 @@
+component_category = utilities
+component_name = send_mail
+component_label = Send mail
+inputs_names = recipient_mail$subject$message$attachment
+inputs_labels = recipient_mail$subject$message$attachment
+inputs_description = Recipient mail$Subject$Message$Attachment
+inputs_default_values = None$None$None$None
+inputs_types = other$other$other$other
+outputs_names = None
+outputs_labels = None
+outputs_description = None

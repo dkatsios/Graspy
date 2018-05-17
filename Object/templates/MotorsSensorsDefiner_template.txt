@@ -1,0 +1,19 @@
+# imports
+{{ imports }}
+
+# pin_parameters
+{{ pin_parameters }}
+
+# class definition
+class MotorsSensorsDefiner:
+    motors = dict()
+{{ motors_code }}
+    sensors = dict()
+{{ sensors_code }}
+    @classmethod
+    def return_motor(cls, motor_name):
+        return cls.motors[motor_name]
+
+    @classmethod
+    def return_sensor(cls, sensor_name):
+        return cls.sensors[sensor_name]

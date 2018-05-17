@@ -1,0 +1,47 @@
+===============================================
+
+Object Name = ras1
+# the command name that calls python 3 from command line. It is usually "python" or "python3"
+python command = python
+
+===============================================
+
+
+===============================================
+IMPORTS_START
+
+from expample_motor_library import ExampleMotorLibrary
+from expample_sensor_library import ExampleSensorLibrary
+
+IMPORTS_END
+===============================================
+
+
+===============================================
+PINS_START
+
+example_motor_pin = 1
+example_sensor_pin = 2
+
+PINS_END
+===============================================
+
+
+===============================================
+MOTORS_START
+
+# servo motors
+example_motor = ExampleMotorLibrary(example_motor_pin)
+
+MOTORS_END
+===============================================
+
+
+===============================================
+SENSORS_START
+
+# sensors
+example_sensor = ExampleSensorLibrary(example_sensor_pin)
+
+SENSORS_END
+===============================================

@@ -1,0 +1,11 @@
+component_category = utilities
+component_name = faces_detected_from_file 
+component_label = Detect faces from file
+inputs_names = filename
+inputs_labels = filename
+inputs_description = Image's filename to detect faces 
+inputs_default_values = test.png 
+inputs_types = other
+outputs_names = num_of_faces$are_detected_faces
+outputs_labels = num_of_faces$are_detected_faces
+outputs_description = Number of faces recognized$Faces detected

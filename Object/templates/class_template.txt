@@ -1,0 +1,69 @@
+import Pyro4
+import {{ components_imports }}
+import socket
+import os
+import glob
+import sys
+from time import sleep
+from socket import socket, AF_INET, SOCK_DGRAM, SOL_SOCKET, SO_BROADCAST, gethostbyname, gethostname
+from threading import Thread
+
+components_path = os.path.dirname(os.path.abspath(__file__))
+project_path = os.path.dirname(components_path)
+sep = os.sep
+
+object_name_label = r'Object Name'
+files_separator = "\n====\n"
+
+boolean_broadcast = True
+MAGIC = 'Broadcast'
+time_to_sleep = 0.5
+
+@Pyro4.expose
+class {{ class_name }}:
+{{func_defs}}    @staticmethod
+    def stop_broadcast():
+        global boolean_broadcast
+        boolean_broadcast = False
+    
+    @staticmethod
+    def get_component_files():
+        files_str = ""
+        print (components_path + sep + "*.comp")
+        for file in glob.glob(components_path + sep + "*.comp"):
+            print(file)
+            fin = open (file, "r")
+            filename = os.path.basename(file)
+            files_str += "component_filename:" + filename + "\n"
+            files_str += object_name_label + " = " + '{{ class_name }}' + "\n"
+            files_str += fin.read() + files_separator
+            fin.close()
+        print (files_str)
+        return (files_str)
+
+
+    @classmethod
+    def return_methods(cls):
+        return [x for x, y in cls.__dict__.items() if type(y) == staticmethod]
+
+def do_broadcast(broadcast_message):
+    s = socket(AF_INET, SOCK_DGRAM) #create UDP socket
+    s.bind(('', 0))
+    s.setsockopt(SOL_SOCKET, SO_BROADCAST, 1) #this is a broadcast socket
+    while boolean_broadcast:
+        s.sendto(bytes(broadcast_message,'utf8'), ('<broadcast>', int('{{ broadcast_port }}')))
+        print (broadcast_message)
+        sleep(time_to_sleep)
+
+if __name__ == '__main__':
+    broadcast_port = {{ broadcast_port }}
+    daemon = Pyro4.Daemon(host='{{ ip }}', port={{ objects_pyro_port }})
+    uri = daemon.register({{ class_name }}, objectId='{{ class_name }}')
+    print (uri)
+    #oxi broadcast_message = MAGIC + '{{ class_name }}' + '$' + '{{ object_role }}' + '$$' + str(uri)
+    
+    #uncomment for broadcast
+    ###broadcast_message = MAGIC + '{{ object_role }}' + '$$' + str(uri)
+    ###t1 = Thread(target=do_broadcast, args=(broadcast_message,))
+    ###t1.start()
+    daemon.requestLoop()

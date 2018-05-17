@@ -1,0 +1,8 @@
+#!/bin/bash
+# cd to the right folder if it doesn't run!
+#python3 MotorsSensorsDefiner_generator.py
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd $DIR
+python3 class_generator.py
+python3 components/object.py&
+sudo python3 app.py

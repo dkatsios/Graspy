@@ -1,0 +1,11 @@
+component_category = flow control
+component_name = wait_for_seconds
+component_label = Wait for seconds
+inputs_names = seconds
+inputs_labels = seconds
+inputs_description = Seconds to wait
+inputs_default_values = 1
+inputs_types = numeric
+outputs_names = None
+outputs_labels = None
+outputs_description = None

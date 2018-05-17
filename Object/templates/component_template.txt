@@ -1,0 +1,11 @@
+raspberry_name = {{ raspberry_name }}
+component_name = {{ component_name }}
+component_label = {{ component_label }}
+inputs_names = {{ inputs_names }}
+inputs_labels = {{ inputs_labels }}
+inputs_description = {{ inputs_description }}
+inputs_default_values = {{ inputs_default_values }}
+inputs_types = {{ inputs_types  }}
+outputs_names = {{ outputs_names }}
+outputs_labels = {{ outputs_labels }}
+outputs_description = {{ outputs_description }}
