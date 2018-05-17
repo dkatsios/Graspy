@@ -1,0 +1,20 @@
+Graspy (Object) installation on Raspberry Pi
+
+With the Object term we mean every platform such as Raspberry Pi, you wish to use
+1. Upgrade your System
+sudo apt-get update
+sudo apt-get upgrade
+2. Python3 installation
+sudo apt-get install python3
+3. Pyro4, Jinja2, Flask packages installation
+sudo pip3 install Pyro4, Jinja2, Flask
+4. Copy Object folder to your preferable path e.g. Desktop
+5. To start the Object's communication with the GUI (User's PC), you should execute "file_to_run" script from "Object" folder and to stop this process execute "kill_raspberry_py.pl" which is in "executables" folder. 
+The executables can be using command prompt from the "Object" folder with the following commands:
+./file_to_run -> to start the application (here it prints the Pyro URI of this Object)
+./executables/kill_raspberry_py.pl -> to stop the application
+you should make these files executables using chmod command from the "Object" folder:
+chmod +x file_to_run
+chmod +x executables/kill_raspberry_py.pl
+6. To create a new component you should create a .comp file, that contains components information, and a .py file, which contains the source code of the component. These files should be stored in the "components" folder. Inside this folder you could find some examples of components (do_print, wait_for_seconds etc.).
+7. On every Object the file Object_configuration.txt should be configured. In this file you should define the Object's role. In case we have more than one Objects in our system only one is defined as Master and all the rest as Slaves. Here you also define a distinct name for this Object. A good practice is to define the same name as Object's hostname. You can define hostname on Raspberry/Linux changing the "/etc/hostname" file. In this file "Object_configuration.txt" you could also add libraries you wish to import, define names for the pins and initialize motors and sensors.

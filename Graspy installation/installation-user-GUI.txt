@@ -1,0 +1,16 @@
+Graspy installation on Windows
+
+1. Install Python3 (https://www.python.org/downloads/) 
+After the installation you can check if you have the right version with the following command using command prompt (should be Python 3.4 or newer):
+python --version
+2. Installation of Python packages Pyro4, Jinja2
+python -m pip install Pyro4, Jinja2
+In case of "permission denied" error in the installation process try to run command prompt as Admininstrator. 
+3. Installation of Kivy package:	       
+python -m pip install --upgrade pip wheel setuptools
+python -m pip install docutils pygments pypiwin32 kivy.deps.sdl2 kivy.deps.glew
+python -m pip install kivy
+(if the installation process fails try installation using wheels, you can find instruction at https://kivy.org/docs/installation/installation-windows.html)
+4. For the execution of the Graspy GUI copy the "User" folder in your preferable path and execute with Python the "GUI_main.py" file. You should run Graspy on all system's Objects to achieve their communication with the GUI (file_to_run - installation instructions on Object).
+5. For every system's Object copy their Pyro URI per line to the "objects_uris.conf" as it is shown when you execute file_to_run on each Object (installation instructions on Object).
+6. When the GUI starts it asks if you want to update .comp files from Objects. If you chose yes all the components you created at each Object will automatically be copied to User's PC updating the corresponding folder (this process depends on the previous step).
