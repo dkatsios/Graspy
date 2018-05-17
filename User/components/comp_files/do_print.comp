@@ -1,0 +1,12 @@
+Object Name = ras1
+component_category = utilities
+component_name = do_print
+component_label = Print text
+inputs_names = text
+inputs_labels = text
+inputs_description = Text to print
+inputs_default_values = None
+inputs_types = other
+outputs_names = None
+outputs_labels = None
+outputs_description = None

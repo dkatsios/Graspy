@@ -1,0 +1,12 @@
+Object Name = ras1
+component_category = utilities
+component_name = print_times
+component_label = print times
+inputs_names = text$times
+inputs_labels = text$times
+inputs_description = text$times
+inputs_default_values = None$1
+inputs_types = other$numeric
+outputs_names = text
+outputs_labels = text
+outputs_description = text

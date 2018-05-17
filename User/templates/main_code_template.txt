@@ -1,0 +1,31 @@
+# main imports
+import os
+import Pyro4
+import math
+from random import uniform
+from threading import Thread
+from time import sleep
+from Future import Future as _do_parallel
+
+# objects URIs
+{{ objects_uris }}
+
+# components matching
+{{ components_functions }}
+
+# components dictionaries initialization
+inputs_dict = dict()
+variables = dict()
+
+
+# __d_function definition
+{{ __d_function_definition }}
+
+#code goes here
+
+def run():
+    outputs = []
+{{ code_to_run }}    return outputs
+
+run()
+#code ends here

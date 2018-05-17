@@ -1,0 +1,11 @@
+component_category = flow control
+component_name = FOR_RANGE
+component_label = For range
+inputs_names = value
+inputs_labels = times
+inputs_description = Times to repeat FOR block
+inputs_default_values = 1
+inputs_types = numeric
+outputs_names = None
+outputs_labels = None
+outputs_description = None

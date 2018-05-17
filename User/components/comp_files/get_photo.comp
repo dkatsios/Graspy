@@ -1,0 +1,12 @@
+Object Name = ras1
+component_category = utilities
+component_name = get_photo
+component_label = Get Photo
+inputs_names = filename
+inputs_labels = Filename
+inputs_description = Provide filename
+inputs_default_values = test.png
+inputs_types = other
+outputs_names = None
+outputs_labels = None
+outputs_description = None

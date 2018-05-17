@@ -1,0 +1,11 @@
+component_category = variables
+component_name = variable
+component_label = variable
+inputs_names = name$value
+inputs_labels = name$value
+inputs_description = name of the variable$value of the variable
+inputs_default_values = var$None
+inputs_types = string$string
+outputs_names = name
+outputs_labels = name
+outputs_description = name of the variable to be used

@@ -1,0 +1,6 @@
+do_print = ras1.do_print
+faces_detected_from_file = ras1.faces_detected_from_file
+get_photo = ras1.get_photo
+print_times = ras1.print_times
+send_mail = ras1.send_mail
+wait_for_seconds = ras1.wait_for_seconds

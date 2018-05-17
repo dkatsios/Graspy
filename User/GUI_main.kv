@@ -1,0 +1,452 @@
+<MainScreen>:
+    id: main_screen
+    TabbedPanel:
+        id: components_categories
+        text: root.build_categories()
+        tab_pos: 'left_top'
+        do_default_tab: False
+        width: 265
+        size_hint_x: None
+    ScrollView:
+        bar_margin: 5
+        bar_width: 5
+        scroll_type: ['content']
+        GridLayout:
+            id: main_canvas
+            cols: 1
+            size_hint_y: None
+            size_hint_x: None
+            height: self.minimum_height
+            width: root.max_canvas_width
+            padding: 5
+            spacing: 5
+            BoxLayout:
+                id: zoom_buttons
+                size_hint: None, None
+                width: 210
+                height: 40
+                orientation: 'horizontal'
+                canvas.before:
+                    Color:
+                        rgb: (0.3, 0.3, 0.3)
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                Button:
+                    id: unzoom_button
+                    text: 'Unzoom'
+                    width: self.parent.width / 2
+                    height: self.parent.width
+                    on_press: root.do_unzoom()
+                    background_color: 0.7, 0.7, 0.7, 1
+                Button:
+                    id: zoom_button
+                    text: 'Zoom'
+                    width: self.parent.width / 2
+                    height: self.parent.width
+                    on_press: root.do_zoom()
+                    background_color: 0.7, 0.7, 0.7, 1
+            Button:
+                id: start_button
+                size_hint: None, None
+                text: 'Start'
+                width: 210
+                height: 40
+                on_press: root.start_component_pressed(self)
+                background_color: (0.2, 0.2, 0.2) if root.start_selected else (0.7, 0.7, 0.7, 1)
+    BoxLayout:
+        width: 265
+        size_hint_x: None
+        id: component_properties
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgb: (0.3, 0.3, 0.3)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        GridLayout:
+            cols: 1
+            height: self.parent.height * 4.5 / 12
+            size_hint_y: None
+            Label:
+                id: component_inputs_label
+                height: self.parent.height / 5
+                text: 'Component inputs'
+                size_hint_y: None
+                canvas.before:
+                    Color:
+                        rgb: (0.15, 0.15, 0.15)
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+            ScrollView:
+                canvas.before:
+                    Color:
+                        rgb: (0.2, 0.2, 0.2)
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                GridLayout:
+                    id: inputs_list
+                    size_hint_y: None
+                    height: self.minimum_height
+                    cols: 1
+                    #size_hint_x: None
+                    padding: 5
+        BoxLayout:
+            id: inputs_labels
+            height: self.parent.height * 3.5 / 12
+            size_hint_y: None
+            orientation: 'vertical'
+            canvas.before:
+                Color:
+                    rgb: (0.25, 0.25, 0.25)
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                id: input_description
+                height: self.parent.height * 3 / 5
+                size_hint_y: None
+                default_text: 'Input description'
+                text: self.default_text
+                text_size: self.size
+                valign: 'top'
+                halign: 'center'
+                padding: 5,5
+            SpaceLabel
+            Label:
+                id: input_value
+                height: self.parent.height * 2 / 5
+                size_hint_y: None
+                default_text: 'Input value'
+                text: self.default_text
+                text_size: self.size
+                valign: 'top'
+                halign: 'center'
+                padding: 5,5
+            SpaceLabel
+        GridLayout:
+            id: input_type
+            height: self.parent.height / 9
+            size_hint_y: None
+            cols: 1
+            BoxLayout:
+                height: self.parent.height * 3 / 5
+                size_hint_y: None
+                orientation: 'horizontal'
+                ToggleButton:
+                    id: from_user
+                    height: self.parent.height
+                    size_hint_y: None
+                    text: 'from\nuser'
+                    valign: 'center'
+                    halign: 'center'
+                    group: 'input_type_selection'
+                    state: 'down'
+                    on_release: root.from_user_pressed(True)
+                ToggleButton:
+                    id: from_component
+                    height: self.parent.height
+                    size_hint_y: None
+                    text: 'from\ncomponent'
+                    valign: 'center'
+                    halign: 'center'
+                    group: 'input_type_selection'
+                    on_release: root.from_component_pressed()
+                ToggleButton:
+                    id: from_file
+                    height: self.parent.height
+                    size_hint_y: None
+                    text: 'from\nfile'
+                    valign: 'center'
+                    halign: 'center'
+                    group: 'input_type_selection'
+                    on_release: root.from_file_pressed()
+            TextInput:
+                id: user_text_input
+                height: self.parent.height * 2 / 5
+                size_hint_y: None
+                multiline: False
+                disabled: not root.user_selected
+                on_text_validate: root.on_enter(self.text)
+            SpaceLabel
+        BoxLayout:
+            id: outputs_labels
+            height: self.parent.height * 2 / 9
+            size_hint_y: None
+            orientation: 'vertical'
+            Button:
+                id: open_outputs_button
+                disabled: root.user_selected and not root.input_list
+                height: self.parent.height / 4
+                size_hint_y: None
+                input_text: 'open list'
+                output_text: 'open outputs'
+                text: ''
+                on_release: outputs_list.open(self)
+                DropDown:
+                    disabled: root.user_selected and not root.input_list
+                    id: outputs_list
+                    on_select: root.output_selected(args[1])
+            Label:
+                id: selected_output
+                height: self.parent.height / 4
+                text: ''
+                disabled: root.user_selected
+            Button:
+                id: run_button
+                height: self.parent.height / 4
+                text: 'Run'
+                disabled: False
+                on_release: root.run_pressed()
+            BoxLayout:
+                id: outputs_labels
+                height: self.parent.height / 4
+                size_hint_y: None
+                orientation: 'horizontal'
+                Button:
+                    id: save_button
+                    text: 'Save'
+                    on_release: root.show_save()
+                Button:
+                    id: load_button
+                    text: 'Load'
+                    on_release: root.show_load()
+
+<LeftComponent>:
+    size_hint: None, None
+    valign: 'center'
+    halign: 'center'
+    text_size: self.size
+    text_pos: self.center
+    padding: 5, 5
+    #on_press: self.component_pressed()
+
+<CenterComponent>:
+    parallel_state: 0
+    index_number: ''
+    inputs_number: ''
+    outputs_number: ''
+    cols: 3
+    text: '_'
+    size_hint: None, None
+    num_of_indents: ''
+    unzoom_level: self.unzoom_level
+    rows_minimum: {0: 25 / self.unzoom_level, 1: 35 / self.unzoom_level}
+    cols_minimum: {0: (root.num_of_indents * 40) / self.unzoom_level, 1: 160 / self.unzoom_level, 2: 50 / self.unzoom_level}
+    #height: sum([val for val in self.rows_minimum.values()])
+    #width: sum([val for val in self.cols_minimum.values()])
+    height: 25 / self.unzoom_level + 35 / self.unzoom_level
+    width: (root.num_of_indents * 40) / self.unzoom_level + 160 / self.unzoom_level + 50 / self.unzoom_level
+    canvas.before:
+        Color:
+            rgb: (0.3, 0.3, 0.3)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    Label:
+        canvas.before:
+            Color:
+                rgb: (0, 0, 0)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+    Label:
+        id: component_label
+        canvas.before:
+            Color:
+                rgb: (0.4, 0.4, 0.4) if root.start_selected else (0.2, 0.2, 0.2)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+    BoxLayout:
+        on_size: root.change_font_size(self)
+        orientation: 'horizontal'
+        Button:
+            id: do_parallel
+            canvas.before:
+                Color:
+                    rgb: (0.3, 0.3, 0.3)
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            background_color: (.5, .6, .2, 1)
+            text: root.parallel_state_text()
+            text_size: self.size
+            font_size: self.font_size
+            on_size: root.change_font_size(self)
+            valign: 'center'
+            halign: 'center'
+            on_release: root.change_parallel_state(self)
+        Button:
+            id: delete_component
+            canvas.before:
+                Color:
+                    rgb: (0.3, 0.3, 0.3)
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            background_color: 1, .6, .2, 1
+            text: 'X'
+            text_size: self.size
+            font_size: self.font_size
+            on_size: root.change_font_size(self)
+            valign: 'center'
+            halign: 'center'
+            on_release: root.remove_component(root.id)
+    Label:
+        canvas.before:
+            Color:
+                rgb: (0, 0, 0)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+    Label:
+        id: component_label_text
+        canvas.before:
+            Color:
+                rgb: (0.3, 0.3, 0.3)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        #size_hint: None, None
+        #size: self.texture_size
+        font_size: self.font_size
+        on_size: root.change_font_size(self)
+        text: root.text
+        text_size: self.size
+        padding: 5, 5
+        halign: 'left'
+        valign: 'middle'
+    Label:
+        id: component_index
+        canvas.before:
+            Color:
+                rgb: (0.3, 0.3, 0.3)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        #size_hint: None, None
+        text: str(root.index_number)
+        text_size: self.size
+        font_size: self.font_size
+        on_size: root.change_font_size(self)
+        padding: 5, 5
+        halign: 'center'
+        valign: 'middle'
+#    Label:
+#        canvas.before:
+#            Color:
+#                rgb: (0, 0, 0)
+#            Rectangle:
+#                pos: self.pos
+#                size: self.size
+#    Label:
+#        canvas.before:
+#            Color:
+#                rgb: (0.3, 0.3, 0.3)
+#            Rectangle:
+#                pos: self.pos
+#                size: self.size
+#        #size_hint: None, None
+#        text: 'inputs: ' + str(root.inputs_number)
+#        text_size: self.size
+#        padding: 5, 5
+#   Label:
+#        canvas.before:
+#            Color:
+#                rgb: (0.3, 0.3, 0.3)
+#            Rectangle:
+#                pos: self.pos
+#                size: self.size
+#        #size_hint: None, None
+#        text: 'outputs: ' + str(root.outputs_number)
+#        text_size: self.size
+#        padding: 5, 5
+#        halign: 'right'
+
+<ComponentsArea>:
+    id: components_area
+    padding: 5
+    spacing: 5
+    #cols: 1
+    # set GridLayout to be unrestricted vertically
+    size_hint_y:  None
+    # set the height of the layout to the combined height of the children
+    height: self.minimum_height
+
+<InputButton>:
+    id: input.name
+    height: 50
+    size_hint_y: None
+    text_size: self.size
+    padding: 5, 5
+    halign: 'center'
+    valign: 'center'
+    group: 'input_selection'
+
+<OutputButton>:
+    size_hint_y: None
+    height: 50
+    text_size: self.size
+    halign: 'center'
+    valign: 'center'
+
+<SpaceLabel@Label>:
+    height: 2
+    size_hint_y: None
+    canvas:
+        Color:
+            rgb: (0.15, 0.15, 0.15)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+
+<LoadDialog>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserListView:
+            id: filechooser
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
+
+            Button:
+                text: "Load"
+                on_release: root.load(filechooser.path, filechooser.selection)
+
+<SaveDialog>:
+    text_input: text_input
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserListView:
+            id: filechooser
+            on_selection: text_input.text = self.selection and self.selection[0] or ''
+
+        TextInput:
+            id: text_input
+            size_hint_y: None
+            height: 30
+            multiline: False
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
+
+            Button:
+                text: "Save"
+                on_release: root.save(filechooser.path, text_input.text)

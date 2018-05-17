@@ -1,0 +1,11 @@
+component_category = flow control
+component_name = WHILE
+component_label = While
+inputs_names = value
+inputs_labels = condition
+inputs_description = Condition to repeat WHILE block
+inputs_default_values = True
+inputs_types = list:True,False
+outputs_names = None
+outputs_labels = None
+outputs_description = None

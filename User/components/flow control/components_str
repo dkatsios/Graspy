@@ -1,0 +1,11 @@
+CLOSE_THREADS = default_name.CLOSE_THREADS
+ELSE = default_name.ELSE
+ELSE_IF = default_name.ELSE_IF
+END = default_name.END
+end_thread = default_name.end_thread
+FOR_RANGE = default_name.FOR_RANGE
+IF = default_name.IF
+new_thread = default_name.new_thread
+START_THREADS = default_name.START_THREADS
+variable = default_name.variable
+WHILE = default_name.WHILE

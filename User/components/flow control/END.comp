@@ -1,0 +1,11 @@
+component_category = flow control
+component_name = END
+component_label = End
+inputs_names = None
+inputs_labels = None
+inputs_description = None
+inputs_default_values = None
+inputs_types = None
+outputs_names = None
+outputs_labels = None
+outputs_description = None

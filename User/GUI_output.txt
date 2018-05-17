@@ -1,0 +1,2 @@
+component	do_print	0	τεστ	parallel_state 1
+component	do_print	1	None	parallel_state 1
